@@ -719,7 +719,7 @@ if (typeof JSV === 'undefined') {
             if (s.anyOf) {
                 all.anyOf = s.anyOf;
             }
-            
+
             console.log(s);
 
             node = {
@@ -727,7 +727,7 @@ if (typeof JSV === 'undefined') {
                 name: (schema.$ref && real ? name : false) || s.title || name || 'schema',
                 isReal: real,
                 plainName: name,
-                type: s.type,
+                type: s.type || (s.const ? 'const: ' + s.const : ''),
                 displayType: s.type || (s['enum'] ? 'enum: ' + s['enum'].join(', ') : s.items ? 'array' : s.properties ? 'object' : 'ambiguous'),
                 translation: schema.translation || s.translation,
                 example: schema.example || s.example,
@@ -1149,6 +1149,7 @@ if (typeof JSV === 'undefined') {
                     return 'start';
                 })
                 .text(function(d) {
+                    console.log(d)
                     return d.name + (d.require ? '*' : '');
                 })
                 .style('fill-opacity', 0)
@@ -1368,7 +1369,7 @@ if (typeof JSV === 'undefined') {
                     });
 
                 if(typeof callback === 'function') {callback();}
-            
+
         }
     };
 }
